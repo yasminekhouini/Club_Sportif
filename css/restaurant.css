@@ -1,0 +1,630 @@
+/* ========================================
+   RESTAURANT PAGE STYLES - Version Complète Optimisée
+   Compatible avec Bootstrap 5 (styles.css)
+   ======================================== */
+
+/* -------------------- Variables -------------------- */
+:root {
+  --restaurant-primary: #ffc800;
+  --restaurant-dark: #212529;
+  --restaurant-light: #f8f9fa;
+  --restaurant-gradient: linear-gradient(135deg, #667eea, #764ba2);
+  --shadow-light: 0 8px 25px rgba(0,0,0,.1);
+  --shadow-hover: 0 15px 40px rgba(0,0,0,.15);
+  --transition: all 0.3s ease;
+}
+
+/* -------------------- Header Restaurant -------------------- */
+header.masthead.restaurant.sample-page {
+  position: relative;
+  padding: 12rem 0 8rem;
+  text-align: center;
+  color: #fff;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(0deg, rgba(0,0,0,.6), rgba(0,0,0,.4)),
+              url('../assets/img/restaurant/header.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+}
+
+header.masthead.restaurant .masthead-subheading {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 15px rgba(0,0,0,.8);
+  margin: 0;
+  animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -------------------- Restaurant CTA Section -------------------- */
+section#restaurant {
+  padding: 4rem 0;
+  background: linear-gradient(180deg, #fff 0%, var(--restaurant-light) 100%);
+}
+
+section#restaurant .restaurant-cta {
+  padding: 3.5rem 3rem;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-radius: 20px;
+  box-shadow: var(--shadow-light);
+  max-width: 900px;
+  margin: 0 auto;
+  border: 1px solid rgba(0,0,0,.05);
+}
+
+section#restaurant .restaurant-cta h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--restaurant-dark);
+  margin-bottom: 1.5rem;
+}
+
+section#restaurant .restaurant-cta p {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+section#restaurant .restaurant-cta .btn-primary {
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--transition);
+}
+
+section#restaurant .restaurant-cta .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 200, 0, 0.3);
+}
+
+/* -------------------- Section Spacing -------------------- */
+.page-section {
+  padding: 6rem 0;
+}
+
+.page-section.bg-light {
+  background-color: var(--restaurant-light) !important;
+}
+
+/* -------------------- Concept Section -------------------- */
+.concept-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  box-shadow: var(--shadow-light);
+  transition: var(--transition);
+  height: 100%;
+  border: 1px solid rgba(0,0,0,.05);
+  text-align: center;
+}
+
+.concept-card:hover {
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-hover);
+}
+
+.concept-icon {
+  font-size: 3.5rem;
+  color: var(--restaurant-primary);
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.concept-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--restaurant-dark);
+}
+
+.concept-card p {
+  font-size: 1rem;
+  color: #6c757d;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* -------------------- Menu Categories -------------------- */
+.menu-category {
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.menu-category:last-child {
+  border-bottom: none;
+}
+
+.menu-category h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--restaurant-dark);
+}
+
+.menu-category h3 i {
+  color: var(--restaurant-primary);
+  font-size: 2.2rem;
+}
+
+/* -------------------- Menu Items -------------------- */
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem 0;
+  border-bottom: 1px dashed #dee2e6;
+  gap: 2rem;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item-info {
+  flex: 1;
+}
+
+.menu-item-info h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--restaurant-dark);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.menu-item-info p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #6c757d;
+  line-height: 1.6;
+}
+
+.menu-item-price {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--restaurant-primary);
+  white-space: nowrap;
+  min-width: 80px;
+  text-align: right;
+}
+
+/* -------------------- Badges -------------------- */
+.badge-healthy {
+  background: var(--restaurant-primary);
+  color: var(--restaurant-dark);
+  font-size: 0.65rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+/* -------------------- Values Section -------------------- */
+.values-section {
+  background: var(--restaurant-dark);
+  color: #fff;
+  padding: 6rem 0;
+}
+
+.values-section .section-heading {
+  color: #fff;
+}
+
+.value-item {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.value-item i {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  color: var(--restaurant-primary);
+  display: block;
+}
+
+.value-item h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.value-item p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+}
+
+/* -------------------- Gallery Grid -------------------- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.gallery-item {
+  height: 250px;
+  border-radius: 20px;
+  background: var(--restaurant-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: var(--transition);
+  box-shadow: var(--shadow-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.2);
+  transition: var(--transition);
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-hover);
+}
+
+.gallery-item:hover::before {
+  background: rgba(0,0,0,.1);
+}
+
+.gallery-label {
+  position: relative;
+  z-index: 1;
+  text-shadow: 2px 2px 10px rgba(0,0,0,.5);
+}
+
+/* -------------------- CTA Section -------------------- */
+.cta-section {
+  background: linear-gradient(135deg, var(--restaurant-primary), #ffdd55);
+  padding: 5rem 3rem;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: var(--shadow-light);
+}
+
+.cta-section h2 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--restaurant-dark);
+  margin-bottom: 1.5rem;
+}
+
+.btn-custom {
+  background: var(--restaurant-dark);
+  color: #fff;
+  border: none;
+  padding: 1.2rem 3rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--transition);
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0,0,0,.2);
+}
+
+.btn-custom:hover {
+  background: #000;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.3);
+}
+
+/* -------------------- Section Headings -------------------- */
+.section-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.section-subheading {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #6c757d;
+  margin-bottom: 3rem;
+}
+
+/* -------------------- Hours Section -------------------- */
+.page-section .col-lg-6 h3 {
+  color: var(--restaurant-dark);
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.page-section .col-lg-6 .menu-item h4 {
+  font-size: 1.1rem;
+  color: var(--restaurant-dark);
+}
+
+.page-section .col-lg-6 .concept-card ul {
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+.page-section .col-lg-6 .concept-card ul li {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: #495057;
+}
+
+/* -------------------- Responsive Design -------------------- */
+@media (max-width: 991px) {
+  .page-section {
+    padding: 4rem 0;
+  }
+  
+  .concept-card {
+    margin-bottom: 2rem;
+  }
+  
+  .value-item {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  header.masthead.restaurant.sample-page {
+    padding: 10rem 0 6rem;
+    min-height: 400px;
+  }
+  
+  header.masthead.restaurant .masthead-subheading {
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+  }
+  
+  section#restaurant .restaurant-cta {
+    padding: 2.5rem 1.5rem;
+  }
+  
+  section#restaurant .restaurant-cta h2 {
+    font-size: 1.8rem;
+  }
+  
+  .menu-item {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .menu-item-price {
+    text-align: left;
+    font-size: 1.5rem;
+  }
+  
+  .menu-category h3 {
+    font-size: 1.5rem;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .gallery-item {
+    height: 180px;
+    font-size: 1.1rem;
+  }
+  
+  .cta-section {
+    padding: 3rem 2rem;
+  }
+  
+  .cta-section h2 {
+    font-size: 1.8rem;
+  }
+  
+  .section-heading {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  header.masthead.restaurant .masthead-subheading {
+    font-size: 1.8rem;
+  }
+  
+  .page-section {
+    padding: 3rem 0;
+  }
+  
+  .btn-custom,
+  section#restaurant .restaurant-cta .btn-primary {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+  
+  .concept-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .menu-category {
+    margin-bottom: 3rem;
+  }
+}
+
+/* -------------------- Utility Classes -------------------- */
+.text-center {
+  text-align: center !important;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.mb-5 {
+  margin-bottom: 3rem !important;
+}
+
+.custom-bg-light {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+}
+
+/* -------------------- Animations -------------------- */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.menu-item {
+  animation: slideInRight 0.5s ease;
+}
+
+/* -------------------- Print Styles -------------------- */
+@media print {
+  header.masthead.restaurant.sample-page,
+  .cta-section,
+  .btn-custom {
+    display: none;
+  }
+  
+  .page-section {
+    padding: 2rem 0;
+  }
+}
+
+/* -------------------- Menu Categories -------------------- */
+.menu-category {
+  margin-bottom: 5rem;
+}
+
+.menu-category .row {
+  margin-bottom: 4rem;
+  align-items: center;
+}
+
+.menu-category .row:last-child {
+  margin-bottom: 0;
+}
+
+.menu-category img.responsive {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: var(--shadow-light);
+  transition: var(--transition);
+}
+
+.menu-category img.responsive:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-hover);
+}
+
+.menu-category .about-section {
+  padding: 2rem 3rem;
+}
+
+.menu-category .about-section h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--restaurant-dark);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.menu-category .about-section h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--restaurant-primary);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.menu-category .about-section p {
+  font-size: 1rem;
+  color: #6c757d;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.menu-category .about-section .menu-items-list {
+  margin-bottom: 2rem;
+}
+
+.menu-category .about-section .menu-items-list .menu-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px dashed #dee2e6;
+}
+
+.menu-category .about-section .menu-items-list .menu-item-row:last-child {
+  border-bottom: none;
+}
+
+.menu-category .about-section .menu-items-list .item-name {
+  font-weight: 600;
+  color: var(--restaurant-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.menu-category .about-section .menu-items-list .item-price {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--restaurant-primary);
+}
+
+.menu-category .btn-primary {
+  padding: 0.8rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--transition);
+}
+
+.menu-category .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 200, 0, 0.3);
+}

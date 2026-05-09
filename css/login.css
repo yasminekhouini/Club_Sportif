@@ -1,0 +1,285 @@
+/* Login & Register Page Styles */
+
+:root {
+    --primary-color: #ffc800;
+    --dark-color: #1a1a1a;
+    --light-color: #f8f9fa;
+    --border-color: #dee2e6;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#page-top {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.login-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px 40px;
+}
+
+.login-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 50px 40px;
+    max-width: 100%;
+}
+
+.login-header h2 {
+    color: var(--dark-color);
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.login-header p {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.form-control,
+.form-control-lg {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-control-lg:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(255, 200, 0, 0.15);
+    background-color: white;
+    color: var(--dark-color);
+}
+
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-top: 3px;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-label {
+    margin-left: 8px;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.form-check-label a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.form-check-label a:hover {
+    text-decoration: underline;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+}
+
+.btn-primary:hover {
+    background-color: #e6b800;
+    border-color: #e6b800;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 200, 0, 0.3);
+}
+
+.btn-primary:focus {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 0 0 0.25rem rgba(255, 200, 0, 0.25);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary:focus {
+    color: white;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(255, 200, 0, 0.25);
+}
+
+.invalid-feedback {
+    display: block;
+    font-size: 0.85rem;
+    color: #dc3545;
+    margin-top: 5px;
+}
+
+.was-validated .form-control:invalid,
+.was-validated .form-control-lg:invalid {
+    border-color: #dc3545;
+}
+
+.was-validated .form-control:invalid:focus,
+.was-validated .form-control-lg:invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.15);
+}
+
+.alert {
+    border-radius: 8px;
+    border: none;
+    padding: 15px 20px;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.text-center small {
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.text-center small a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.text-center small a:hover {
+    text-decoration: underline;
+}
+
+hr {
+    border: 0;
+    border-top: 2px solid var(--border-color);
+}
+
+/* Footer adjustment for login pages */
+.footer {
+    background-color: var(--dark-color);
+    color: white;
+    margin-top: auto;
+}
+
+.footer a {
+    color: white;
+}
+
+.footer a:hover {
+    color: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .login-card {
+        padding: 30px 25px;
+    }
+
+    .login-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-control,
+    .form-control-lg {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
+
+    .btn-primary,
+    .btn-outline-primary {
+        padding: 12px 18px;
+        font-size: 0.9rem;
+    }
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    border-radius: 3px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
