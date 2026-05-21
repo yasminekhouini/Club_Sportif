@@ -47,3 +47,9 @@ CREATE TABLE reservations (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (membre_id) REFERENCES membres(id) ON DELETE SET NULL
 );
+
+CREATE TABLE `admin` (
+  `id` int NOT NULL,
+  `email` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mdp` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
