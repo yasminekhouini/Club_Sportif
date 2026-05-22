@@ -25,15 +25,19 @@ CREATE TABLE abonnements (
 );
 
 CREATE TABLE paiements (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  membre_id INT NOT NULL,
-  abonnement_id INT,
-  montant DECIMAL(10,2) NOT NULL,
-  date_paiement DATE DEFAULT (CURDATE()),
-  mode_paiement ENUM('especes','carte','virement') DEFAULT 'especes',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  id               INT AUTO_INCREMENT PRIMARY KEY,
+  membre_id        INT NOT NULL,
+  type_transaction VARCHAR(100) NOT NULL,
+  montant_total    DECIMAL(10,2) NOT NULL,
+  montant_paye     DECIMAL(10,2) NOT NULL DEFAULT 0,
+  mode_paiement    ENUM('especes','carte','virement','cheque') DEFAULT 'especes',
+  statut           ENUM('paye','partiel','en_attente','rembourse') DEFAULT 'en_attente',
+  date_paiement    DATE NOT NULL,
+  remarque         TEXT,
+  created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (membre_id) REFERENCES membres(id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE reservations (
   id INT AUTO_INCREMENT PRIMARY KEY,
