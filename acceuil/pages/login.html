@@ -122,22 +122,37 @@
     <script src="../js/startbootstrap.js"></script>
 
     <script>
-        // Login form validation
-        document.getElementById("loginForm").addEventListener("submit", function (e) {
+        // Login form validation + admin check
+        document.getElementById("loginForm").addEventListener("submit", async function (e) {
             e.preventDefault();
             this.classList.add("was-validated");
 
             if (this.checkValidity()) {
-                document.getElementById("loginSuccessMessage").classList.remove("d-none");
-                document.getElementById("loginErrorMessage").classList.add("d-none");
-                
-                // Simulate login success - in real app, this would send to server
-                setTimeout(() => {
-                    window.location.href = "../index.html";
-                }, 1500);
-                
-                this.reset();
-                this.classList.remove("was-validated");
+                const email = document.getElementById("email").value.trim();
+                const mdp = document.getElementById("password").value;
+                try {
+                    const res = await fetch('http://localhost/JSproject/Club_Sportif/shared-backend/login_admin.php', {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email, mdp })
+                    });
+                    const json = await res.json();
+                    if (json.success) {
+                        document.getElementById("loginSuccessMessage").classList.remove("d-none");
+                        document.getElementById("loginErrorMessage").classList.add("d-none");
+                        setTimeout(() => {
+                            window.location.href = "../../admin-dashboard/index1.html";
+                        }, 1000);
+                        this.reset();
+                        this.classList.remove("was-validated");
+                    } else {
+                        document.getElementById("loginSuccessMessage").classList.add("d-none");
+                        document.getElementById("loginErrorMessage").classList.remove("d-none");
+                    }
+                } catch (err) {
+                    document.getElementById("loginSuccessMessage").classList.add("d-none");
+                    document.getElementById("loginErrorMessage").classList.remove("d-none");
+                }
             } else {
                 document.getElementById("loginSuccessMessage").classList.add("d-none");
                 document.getElementById("loginErrorMessage").classList.remove("d-none");
