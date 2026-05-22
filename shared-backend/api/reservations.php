@@ -1,112 +1,113 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '0');
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
-require_once __DIR__ . '/../db.php';
+
+try {
+    require_once __DIR__ . '/../db.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
-$input = json_decode(file_get_contents('php://input'), true);
 
-function jsonResponse($data, $status = 200) {
-    http_response_code($status);
-    echo json_encode($data, JSON_UNESCAPED_UNICODE);
+// ── GET ──────────────────────────────────────────────────────────
+if ($method === 'GET') {
+    $stmt = $pdo->query(
+        "SELECT r.*, m.nom AS membre_nom
+         FROM reservations r
+         LEFT JOIN membres m ON m.id = r.membre_id
+         ORDER BY r.date_reservation DESC, r.heure_debut ASC"
+    );
+    $reservations = $stmt->fetchAll();
+
+    // Stats
+    $stats = $pdo->query(
+        "SELECT
+            COUNT(*)                                                   AS total,
+            SUM(date_reservation = CURDATE())                          AS aujourd_hui,
+            SUM(date_reservation BETWEEN CURDATE()
+                AND DATE_ADD(CURDATE(), INTERVAL 7 DAY))               AS cette_semaine,
+            SUM(statut = 'confirmee')                                  AS confirmees,
+            SUM(statut = 'en_attente')                                 AS en_attente
+         FROM reservations"
+    )->fetch();
+
+    echo json_encode(['success' => true, 'data' => $reservations, 'stats' => $stats]);
     exit;
 }
 
-try {
-    switch ($method) {
-        case 'GET':
-            $stmt = $pdo->query(
-                'SELECT r.id, r.membre_id, r.activite, r.salle, r.date_reservation, r.heure_debut, r.heure_fin, r.statut, r.created_at, m.nom AS membre_nom
-                 FROM reservations r
-                 LEFT JOIN membres m ON r.membre_id = m.id
-                 ORDER BY r.date_reservation ASC, r.heure_debut ASC'
-            );
-            $reservations = $stmt->fetchAll();
-            jsonResponse(['success' => true, 'data' => $reservations]);
-            break;
+// ── POST ─────────────────────────────────────────────────────────
+if ($method === 'POST') {
+    $d = json_decode(file_get_contents("php://input"), true);
 
-        case 'POST':
-            if (!$input) {
-                jsonResponse(['success' => false, 'error' => 'Données JSON manquantes'], 400);
-            }
-
-            $activite = trim($input['activite'] ?? '');
-            $date_reservation = trim($input['date_reservation'] ?? '');
-            $heure_debut = trim($input['heure_debut'] ?? '');
-            $statut = trim($input['statut'] ?? 'confirmee');
-
-            if (!$activite || !$date_reservation || !$heure_debut) {
-                jsonResponse(['success' => false, 'error' => 'Activité, date et heure de début sont obligatoires'], 400);
-            }
-
-            $stmt = $pdo->prepare(
-                'INSERT INTO reservations (membre_id, activite, salle, date_reservation, heure_debut, heure_fin, statut)
-                 VALUES (:membre_id, :activite, :salle, :date_reservation, :heure_debut, :heure_fin, :statut)'
-            );
-            $stmt->execute([
-                ':membre_id' => !empty($input['membre_id']) ? $input['membre_id'] : null,
-                ':activite' => $activite,
-                ':salle' => trim($input['salle'] ?? ''),
-                ':date_reservation' => $date_reservation,
-                ':heure_debut' => $heure_debut,
-                ':heure_fin' => trim($input['heure_fin'] ?? ''),
-                ':statut' => in_array($statut, ['confirmee','annulee','en_attente']) ? $statut : 'confirmee',
-            ]);
-
-            jsonResponse(['success' => true, 'id' => $pdo->lastInsertId()]);
-            break;
-
-        case 'PUT':
-            if (!$input || empty($input['id'])) {
-                jsonResponse(['success' => false, 'error' => 'ID de réservation manquant'], 400);
-            }
-
-            $id = (int)$input['id'];
-            $fields = [];
-            $params = [':id' => $id];
-
-            $allowed = ['membre_id', 'activite', 'salle', 'date_reservation', 'heure_debut', 'heure_fin', 'statut'];
-            foreach ($allowed as $key) {
-                if (array_key_exists($key, $input)) {
-                    $fields[] = "$key = :$key";
-                    $params[":$key"] = $input[$key] === '' ? null : $input[$key];
-                }
-            }
-
-            if (empty($fields)) {
-                jsonResponse(['success' => false, 'error' => 'Aucun champ à mettre à jour'], 400);
-            }
-
-            $query = 'UPDATE reservations SET ' . implode(', ', $fields) . ' WHERE id = :id';
-            $stmt = $pdo->prepare($query);
-            $stmt->execute($params);
-
-            if ($stmt->rowCount() === 0) {
-                jsonResponse(['success' => false, 'error' => 'Réservation introuvable ou non modifiée'], 404);
-            }
-
-            jsonResponse(['success' => true]);
-            break;
-
-        case 'DELETE':
-            if (!$input || empty($input['id'])) {
-                jsonResponse(['success' => false, 'error' => 'ID de réservation manquant'], 400);
-            }
-            $id = (int)$input['id'];
-            $stmt = $pdo->prepare('DELETE FROM reservations WHERE id = :id');
-            $stmt->execute([':id' => $id]);
-            if ($stmt->rowCount() === 0) {
-                jsonResponse(['success' => false, 'error' => 'Réservation introuvable'], 404);
-            }
-            jsonResponse(['success' => true]);
-            break;
-
-        default:
-            jsonResponse(['success' => false, 'error' => 'Méthode non supportée'], 405);
+    if (empty($d['activite']) || empty($d['date_reservation']) || empty($d['heure_debut'])) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'error' => 'Activité, date et heure début requis']);
+        exit;
     }
-} catch (PDOException $e) {
-    jsonResponse(['success' => false, 'error' => 'Erreur base de données : ' . $e->getMessage()], 500);
+
+    $pdo->prepare(
+        "INSERT INTO reservations (membre_id, activite, salle, date_reservation, heure_debut, heure_fin, statut)
+         VALUES (?, ?, ?, ?, ?, ?, ?)"
+    )->execute([
+        $d['membre_id'] ?: null,
+        $d['activite'],
+        $d['salle'] ?? null,
+        $d['date_reservation'],
+        $d['heure_debut'],
+        $d['heure_fin'] ?? null,
+        $d['statut'] ?? 'confirmee',
+    ]);
+
+    echo json_encode(['success' => true, 'id' => (int)$pdo->lastInsertId()]);
+    exit;
+}
+
+// ── PUT ──────────────────────────────────────────────────────────
+if ($method === 'PUT') {
+    $d  = json_decode(file_get_contents("php://input"), true);
+    $id = (int)($d['id'] ?? 0);
+
+    if (!$id) { echo json_encode(['success' => false, 'error' => 'ID manquant']); exit; }
+
+    $pdo->prepare(
+        "UPDATE reservations
+         SET membre_id=?, activite=?, salle=?, date_reservation=?,
+             heure_debut=?, heure_fin=?, statut=?
+         WHERE id=?"
+    )->execute([
+        $d['membre_id'] ?: null,
+        $d['activite'],
+        $d['salle'] ?? null,
+        $d['date_reservation'],
+        $d['heure_debut'],
+        $d['heure_fin'] ?? null,
+        $d['statut'] ?? 'confirmee',
+        $id,
+    ]);
+
+    echo json_encode(['success' => true]);
+    exit;
+}
+
+// ── DELETE ───────────────────────────────────────────────────────
+if ($method === 'DELETE') {
+    $d  = json_decode(file_get_contents("php://input"), true);
+    $id = (int)($d['id'] ?? 0);
+
+    if (!$id) { echo json_encode(['success' => false, 'error' => 'ID manquant']); exit; }
+
+    $pdo->prepare("DELETE FROM reservations WHERE id = ?")->execute([$id]);
+    echo json_encode(['success' => true]);
+    exit;
+}
+
+http_response_code(405);
+echo json_encode(['error' => 'Method not allowed']);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
 }
