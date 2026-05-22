@@ -1,1334 +1,391 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="Smart GYM - Gestion des Paiements" />
-    <meta name="author" content="Smart GYM" />
-    <meta name="keywords" content="gym, fitness, paiements" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Smart GYM - Paiements</title>
 
-    <title>Smart GYM - Paiements</title>
-    <link href="../acceuil/css/monserrat.css" rel="stylesheet" type="text/css" />
-    <link href="../acceuil/css/styles.css" rel="stylesheet" />
-
-    <!-- Fontfaces CSS-->
-
-    <!-- Bootstrap CSS-->
-
-    <!-- Vendor CSS-->
-
-    <!-- DataTables CSS -->
-    <link
-      href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"
-      rel="stylesheet"
-    />
-
-    <!-- Main CSS-->
-    
-    <style>
-      /* Status Badges */
-      .badge-status {
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 12px;
-        font-weight: 600;
-      }
-
-      .badge-paye {
-        background-color: #1cc88a;
-        color: white;
-      }
-
-      .badge-partiel {
-        background-color: #f6c23e;
-        color: #000;
-      }
-
-      .badge-attente {
-        background-color: #e74a3b;
-        color: white;
-      }
-
-      .badge-rembourse {
-        background-color: #858796;
-        color: white;
-      }
-
-      /* Table responsive improvements */
-      .table-responsive {
-        overflow-x: auto;
-      }
-
-      .table {
-        font-size: 14px;
-      }
-
-      .table thead th {
-        background-color: #f8f9fc;
-        color: #4e73df;
-        font-weight: 600;
-        border-bottom: 2px solid #e3e6f0;
-      }
-
-      .table tbody tr:hover {
-        background-color: #f8f9fc;
-      }
-
-      /* Card styling */
-      .card {
-        border: none;
-        border-radius: 8px;
-        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-      }
-
-      .card-header {
-        background-color: #f8f9fc;
-        border-bottom: 1px solid #e3e6f0;
-        padding: 15px 20px;
-      }
-
-      .card-header h6 {
-        color: #4e73df;
-        font-weight: 600;
-        margin: 0;
-      }
-
-      /* Action buttons */
-      .table-data__tool {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-
-      .table-data__tool-left h3 {
-        font-size: 20px;
-        color: #5a5c69;
-        font-weight: 600;
-        margin: 0;
-      }
-
-      .table-data__tool-right {
-        display: flex;
-        gap: 10px;
-      }
-
-      .au-btn {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .au-btn--green {
-        background-color: #1cc88a;
-        color: white;
-      }
-
-      .au-btn--green:hover {
-        background-color: #17a673;
-      }
-
-      .au-btn--blue {
-        background-color: #4e73df;
-        color: white;
-      }
-
-      .au-btn--blue:hover {
-        background-color: #2e59d9;
-      }
-
-      /* Action buttons in table */
-      .action-btn {
-        padding: 5px 10px;
-        font-size: 12px;
-        border-radius: 4px;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s;
-        margin: 2px;
-      }
-
-      .action-btn:hover {
-        transform: scale(1.05);
-      }
-
-      .btn-view {
-        background-color: #4e73df;
-        color: white;
-      }
-
-      .btn-print {
-        background-color: #858796;
-        color: white;
-      }
-
-      .btn-remind {
-        background-color: #f6c23e;
-        color: #000;
-      }
-
-      /* DataTables wrapper styling */
-      .dataTables_wrapper .dataTables_length select,
-      .dataTables_wrapper .dataTables_filter input {
-        border: 1px solid #d1d3e2;
-        border-radius: 5px;
-        padding: 5px 10px;
-      }
-
-      /* Mobile responsive */
-      @media (max-width: 768px) {
-        .table-data__tool {
-          flex-direction: column;
-          gap: 15px;
-          align-items: flex-start;
-        }
-
-        .table-data__tool-right {
-          width: 100%;
-          flex-direction: column;
-        }
-
-        .au-btn {
-          width: 100%;
-          justify-content: center;
-        }
-      }
-    </style>
-
-    <style>
-  .logo img {
-    padding-left: 50px; 
-    max-width: 150px;
-    max-height: 70px;
-    object-fit: contain;
-  }
-</style>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&display=swap" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" defer></script>
-<link href="../acceuil/css/fontawesome/css/admin-shell.css" rel="stylesheet" />
-<script src="../admin-dashboard/js/embed.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="../acceuil/css/fontawesome/css/admin-shell.css" rel="stylesheet" />
+
+  <script src="js/paiement.js" defer></script>
+
+  <style>
+    body { background: #f4f6f9; font-family: 'Roboto Slab', sans-serif; }
+    .page-wrap { max-width: 1300px; margin: 0 auto; padding: 24px; }
+
+    /* ── Header ── */
+    .admin-header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2c5282 100%);
+      color: white; padding: 30px; border-radius: 15px;
+      margin-bottom: 28px; text-align: center;
+    }
+    .admin-header h1 { margin: 0; font-size: 2.2rem; font-weight: 700; }
+    .admin-header p  { margin: 8px 0 0; opacity: 0.85; }
+
+    /* ── Stats strip ── */
+    .stats-strip { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .stat-pill {
+      background: white; border-radius: 10px; padding: 14px 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.07);
+      display: flex; align-items: center; gap: 12px;
+      flex: 1; min-width: 160px;
+    }
+    .stat-pill i   { font-size: 1.5rem; }
+    .stat-pill .val { font-size: 1.4rem; font-weight: 700; color: #2c3e50; line-height: 1; }
+    .stat-pill .lbl { font-size: 0.76rem; color: #6c757d; margin-top: 2px; }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      background: white; border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.07);
+      padding: 16px 20px; margin-bottom: 20px;
+      display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+    }
+    .search-box { flex: 1; min-width: 220px; position: relative; }
+    .search-box i {
+      position: absolute; left: 12px; top: 50%;
+      transform: translateY(-50%); color: #aaa;
+    }
+    .search-box input {
+      width: 100%; padding: 10px 10px 10px 36px;
+      border: 2px solid #e9ecef; border-radius: 8px; font-size: .92rem;
+    }
+    .search-box input:focus { outline: none; border-color: #4272d7; }
+    .toolbar select {
+      padding: 10px 14px; border: 2px solid #e9ecef;
+      border-radius: 8px; font-size: .92rem; background: white;
+    }
+    .toolbar select:focus { outline: none; border-color: #4272d7; }
+
+    .btn-toolbar {
+      padding: 10px 18px; border: none; border-radius: 8px;
+      font-weight: 600; cursor: pointer; white-space: nowrap;
+      display: flex; align-items: center; gap: 6px; transition: all .2s;
+    }
+    .btn-add     { background: #4272d7; color: white; }
+    .btn-add:hover { background: #2e59d9; transform: translateY(-1px); }
+    .btn-export  { background: #00ad5f; color: white; }
+    .btn-export:hover { background: #009952; transform: translateY(-1px); }
+
+    /* ── Table card ── */
+    .pay-card {
+      background: white; border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.07); overflow: hidden;
+    }
+    .pay-card table { margin: 0; }
+    .pay-card thead th {
+      background: #f8f9fa; color: #2c3e50;
+      font-weight: 600; font-size: .82rem;
+      text-transform: uppercase; letter-spacing: .5px;
+      border-bottom: 2px solid #e9ecef; padding: 14px 16px;
+    }
+    .pay-card tbody td { padding: 13px 16px; vertical-align: middle; }
+    .pay-card tbody tr:hover { background: #f0f4ff; }
+
+    .pay-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, #4272d7, #2e59d9);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: white; font-weight: 700; font-size: .88rem; flex-shrink: 0;
+    }
+    .member-name    { font-weight: 600; color: #2c3e50; font-size: .9rem; }
+    .member-contact { font-size: .78rem; color: #6c757d; }
+
+    /* ── Status badges ── */
+    .badge-pay {
+      padding: 4px 12px; border-radius: 20px;
+      font-size: .78rem; font-weight: 600; display: inline-block;
+    }
+    .badge-paye      { background: #d4edda; color: #155724; }
+    .badge-partiel   { background: #fff3cd; color: #856404; }
+    .badge-attente   { background: #f8d7da; color: #721c24; }
+    .badge-rembourse { background: #e2e3e5; color: #383d41; }
+
+    /* ── Action buttons ── */
+    .btn-action {
+      padding: 5px 10px; border: none; border-radius: 5px;
+      font-size: .78rem; font-weight: 600; cursor: pointer; transition: all .2s;
+    }
+    .btn-action-edit   { background: #4e73df; color: white; }
+    .btn-action-edit:hover { background: #2e59d9; }
+    .btn-action-remind { background: #1cc88a; color: white; }
+    .btn-action-remind:hover { background: #17a673; }
+    .btn-action-delete { background: #e74a3b; color: white; }
+    .btn-action-delete:hover { background: #c82333; }
+
+    .empty-row td { text-align: center; padding: 50px; color: #6c757d; }
+
+    /* ── Modals ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1050;
+      background: rgba(0,0,0,.55);
+    }
+    .modal-overlay.active {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-box {
+      background: white; border-radius: 12px; padding: 28px;
+      width: 90%; max-width: 580px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.25);
+      max-height: 92vh; overflow-y: auto;
+    }
+    .modal-top {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 22px;
+    }
+    .modal-top h2 { margin: 0; color: #2c3e50; font-size: 1.3rem; font-weight: 600; }
+    .btn-x { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #aaa; }
+    .btn-x:hover { color: #333; }
+
+    .form-row   { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block; margin-bottom: 4px;
+      color: #2c3e50; font-weight: 600; font-size: .86rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 9px 12px;
+      border: 2px solid #e9ecef; border-radius: 6px;
+      font-size: .92rem; font-family: inherit; box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { outline: none; border-color: #4272d7; }
+
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+    .btn-secondary {
+      background: #6c757d; color: white; border: none;
+      padding: 9px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;
+    }
+    .btn-primary {
+      background: #4272d7; color: white; border: none;
+      padding: 9px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;
+    }
+    .btn-primary:hover  { background: #2e59d9; }
+    .btn-danger {
+      background: #e74a3b; color: white; border: none;
+      padding: 9px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;
+    }
+    .btn-danger:hover { background: #c82333; }
+
+    .statut-hint {
+      font-size: .8rem; color: #6c757d; margin-top: 6px;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .form-row   { grid-template-columns: 1fr; }
+      .toolbar    { flex-direction: column; }
+      .stats-strip { flex-direction: column; }
+    }
+  </style>
 </head>
 
-  <body>
-    <div class="page-wrapper">
-      <!-- HEADER MOBILE-->
-      <header class="header-mobile d-block d-lg-none">
-        <div class="header-mobile__bar">
-          <div class="container-fluid">
-            <div class="header-mobile-inner">
-              <a class="logo" href="index.html">
-                <img src="images/icon/logo-fitness-center.png" alt="Smart GYM" />
-              </a>
-              <button class="hamburger hamburger--slider" type="button">
-                <span class="hamburger-box">
-                  <span class="hamburger-inner"></span>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <nav class="navbar-mobile">
-          <div class="container-fluid">
-            <ul class="navbar-mobile__list list-unstyled">
-              <li>
-                <a href="index1.html">
-                  <i class="fas fa-tachometer-alt"></i>Tableau de Bord</a
-                >
-              </li>
-              <li>
-                <a href="membres.html"> <i class="fas fa-users"></i>Abonnés</a>
-              </li>
-              <li>
-                <a href="abonnements.html">
-                  <i class="fas fa-id-card"></i>Abonnements</a
-                >
-              </li>
-              <li>
-                <a href="reservations.html">
-                  <i class="fas fa-calendar-check"></i>Réservations</a
-                >
-              </li>
-              <li class="active">
-                <a href="paiements.html">
-                  <i class="fas fa-credit-card"></i>Paiements</a
-                >
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
-      <!-- END HEADER MOBILE-->
+<body>
+<div class="page-wrap">
 
-      <!-- MENU SIDEBAR-->
-      <aside class="menu-sidebar d-none d-lg-block">
-        <div class="logo">
-          <a href="index.html">
-            <img src="images/icon/logo-fitness-center.png" alt="Smart GYM" />
-          </a>
-        </div>
-        <div class="menu-sidebar__content js-scrollbar1">
-          <nav class="navbar-sidebar">
-            <ul class="list-unstyled navbar__list">
-              <li>
-                <a href="index1.html">
-                  <i class="fas fa-tachometer-alt"></i>Tableau de Bord</a
-                >
-              </li>
-              <li>
-                <a href="membres.html"> <i class="fas fa-users"></i>Abonnés</a>
-              </li>
-              <li>
-                <a href="abonnements.html">
-                  <i class="fas fa-id-card"></i>Abonnements</a
-                >
-              </li>
-              <li>
-                <a href="reservations.html">
-                  <i class="fas fa-calendar-check"></i>Réservations</a
-                >
-              </li>
-              <li class="active">
-                <a href="paiements.html">
-                  <i class="fas fa-credit-card"></i>Paiements</a
-                >
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </aside>
-      <!-- END MENU SIDEBAR-->
+  <!-- Header -->
+  <div class="admin-header">
+    <h1><i class="fas fa-credit-card me-2"></i>Historique des Paiements</h1>
+    <p>Gérez toutes les transactions financières du Club Sportif</p>
+  </div>
 
-      <!-- PAGE CONTAINER-->
-      <div class="page-container">
-        <!-- HEADER DESKTOP-->
-        <header class="header-desktop">
-          <div class="section__content section__content--p30">
-            <div class="container-fluid">
-              <div class="header-wrap">
-                <form class="form-header" action="" method="POST">
-                  <input
-                    id="searchPaiement"
-                    class="au-input au-input--xl"
-                    type="text"
-                    name="search"
-                    placeholder="Rechercher un paiement..."
-                  />
-                  <button class="au-btn--submit" type="submit">
-                    <i class="zmdi zmdi-search"></i>
-                  </button>
-                </form>
-                <div class="header-button">
-                  <div class="noti-wrap">
-                    <div class="noti__item js-item-menu">
-                      <i class="zmdi zmdi-notifications"></i>
-                      <span class="quantity">5</span>
-                      <div class="notifi-dropdown js-dropdown">
-                        <div class="notifi__title">
-                          <p>Vous avez 5 Notifications</p>
-                        </div>
-                        <div class="notifi__item">
-                          <div class="bg-c1 img-cir img-40">
-                            <i class="zmdi zmdi-alert-triangle"></i>
-                          </div>
-                          <div class="content">
-                            <p>8 paiements en attente</p>
-                            <span class="date">15 Déc 2024</span>
-                          </div>
-                        </div>
-                        <div class="notifi__footer">
-                          <a href="#">Toutes les notifications</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="account-wrap">
-                    <div class="account-item clearfix js-item-menu">
-                      <div class="image">
-                        <img src="images/icon/avatar-01.jpg" alt="Admin" />
-                      </div>
-                      <div class="content">
-                        <a class="js-acc-btn" href="#">Admin Smart GYM</a>
-                      </div>
-                      <div class="account-dropdown js-dropdown">
-                        <div class="info clearfix">
-                          <div class="image">
-                            <a href="#">
-                              <img
-                                src="images/icon/avatar-01.jpg"
-                                alt="Admin"
-                              />
-                            </a>
-                          </div>
-                          <div class="content">
-                            <h5 class="name">
-                              <a href="#">Admin Smart GYM</a>
-                            </h5>
-                            <span class="email">admin@smartgym.tn</span>
-                          </div>
-                        </div>
-                        <div class="account-dropdown__body">
-                          <div class="account-dropdown__item">
-                            <a href="#">
-                              <i class="zmdi zmdi-account"></i>Profil</a
-                            >
-                          </div>
-                          <div class="account-dropdown__item">
-                            <a href="#">
-                              <i class="zmdi zmdi-settings"></i>Paramètres</a
-                            >
-                          </div>
-                        </div>
-                        <div class="account-dropdown__footer">
-                          <a href="#">
-                            <i class="zmdi zmdi-power"></i>Déconnexion</a
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
-        <!-- END HEADER DESKTOP-->
+  <!-- Stats -->
+  <div class="stats-strip">
+    <div class="stat-pill">
+      <i class="fas fa-receipt" style="color:#4272d7"></i>
+      <div><div class="val" id="sTotalTx">—</div><div class="lbl">Transactions</div></div>
+    </div>
+    <div class="stat-pill">
+      <i class="fas fa-coins" style="color:#00ad5f"></i>
+      <div><div class="val" id="sTotalEnc">—</div><div class="lbl">Total encaissé</div></div>
+    </div>
+    <div class="stat-pill">
+      <i class="fas fa-clock" style="color:#e74a3b"></i>
+      <div><div class="val" id="sAttente">—</div><div class="lbl">En attente</div></div>
+    </div>
+    <div class="stat-pill">
+      <i class="fas fa-exclamation-circle" style="color:#ffc800"></i>
+      <div><div class="val" id="sRestant">—</div><div class="lbl">Montant restant dû</div></div>
+    </div>
+  </div>
 
-        <!-- MAIN CONTENT-->
-        <div class="main-content">
-          <div class="section__content section__content--p30">
-            <div class="container-fluid">
-              <!-- Filter and Actions -->
-              <div class="table-data__tool">
-                <div class="table-data__tool-left">
-                  <h3 class="title-5">Historique des Paiements</h3>
-                </div>
-                <div class="table-data__tool-right">
-                  <button
-                    id="btnExport"
-                    class="au-btn au-btn-icon au-btn--green"
-                  >
-                    <i class="zmdi zmdi-download"></i>Exporter
-                  </button>
-                  <button
-                    class="au-btn au-btn-icon au-btn--blue"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalPaiement"
-                  >
-                    <i class="zmdi zmdi-plus"></i>Enregistrer Paiement
-                  </button>
-                </div>
-              </div>
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput"
+             placeholder="Rechercher par membre ou type..."
+             oninput="filterTable()">
+    </div>
+    <select id="filterStatut" onchange="filterTable()">
+      <option value="">Tous les statuts</option>
+      <option value="paye">Payé</option>
+      <option value="partiel">Partiel</option>
+      <option value="en_attente">En Attente</option>
+      <option value="rembourse">Remboursé</option>
+    </select>
+    <button class="btn-toolbar btn-export" onclick="exportCSV()">
+      <i class="fas fa-download"></i> Exporter CSV
+    </button>
+    <button class="btn-toolbar btn-add" onclick="openAdd()">
+      <i class="fas fa-plus"></i> Enregistrer Paiement
+    </button>
+  </div>
 
-              <!-- DataTables -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">
-                    Toutes les Transactions
-                  </h6>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table
-                      class="table table-bordered table-hover"
-                      id="dataTable"
-                      width="100%"
-                      cellspacing="0"
-                    >
-                      <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Date</th>
-                          <th>Abonné</th>
-                          <th>Type</th>
-                          <th>Montant</th>
-                          <th>Mode</th>
-                          <th>Statut</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                        <tr>
-                          <th>ID</th>
-                          <th>Date</th>
-                          <th>Abonné</th>
-                          <th>Type</th>
-                          <th>Montant</th>
-                          <th>Mode</th>
-                          <th>Statut</th>
-                          <th>Actions</th>
-                        </tr>
-                      </tfoot>
-                      <tbody>
-                        <tr>
-                          <td>#T001</td>
-                          <td>15/12/2024</td>
-                          <td>Ahmed Ben Ali</td>
-                          <td>Gym Mensuel</td>
-                          <td>180 DT</td>
-                          <td>Espèces</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T020</td>
-                          <td>26/11/2024</td>
-                          <td>Sarra Bouaziz</td>
-                          <td>Gym Semestriel</td>
-                          <td>750 DT</td>
-                          <td>Chèque</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T021</td>
-                          <td>25/11/2024</td>
-                          <td>Fares Monastiri</td>
-                          <td>Padel Pack 10</td>
-                          <td>0/900 DT</td>
-                          <td>-</td>
-                          <td>
-                            <span class="badge-status badge-attente"
-                              >En Attente</span
-                            >
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-remind">
-                              <i class="fas fa-bell"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T022</td>
-                          <td>24/11/2024</td>
-                          <td>Donia Ghariani</td>
-                          <td>Kids Mensuel</td>
-                          <td>150 DT</td>
-                          <td>Carte</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T023</td>
-                          <td>23/11/2024</td>
-                          <td>Aymen Saidi</td>
-                          <td>Gym Mensuel</td>
-                          <td>0/180 DT</td>
-                          <td>-</td>
-                          <td>
-                            <span class="badge-status badge-attente"
-                              >En Attente</span
-                            >
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-remind">
-                              <i class="fas fa-bell"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T024</td>
-                          <td>22/11/2024</td>
-                          <td>Ines Ben Salah</td>
-                          <td>Gym Mensuel</td>
-                          <td>180 DT</td>
-                          <td>Espèces</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T025</td>
-                          <td>21/11/2024</td>
-                          <td>Rami Sassi</td>
-                          <td>Réservation Padel</td>
-                          <td>100 DT</td>
-                          <td>Carte</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T026</td>
-                          <td>20/11/2024</td>
-                          <td>Cedric Kelly</td>
-                          <td>Coaching Privé</td>
-                          <td>125/250 DT</td>
-                          <td>Espèces</td>
-                          <td>
-                            <span class="badge-status badge-partiel"
-                              >Partiel</span
-                            >
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-remind">
-                              <i class="fas fa-bell"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T027</td>
-                          <td>19/11/2024</td>
-                          <td>Airi Satou</td>
-                          <td>Gym Trimestriel</td>
-                          <td>450 DT</td>
-                          <td>Virement</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T028</td>
-                          <td>18/11/2024</td>
-                          <td>Brielle Williamson</td>
-                          <td>Réservation Basketball</td>
-                          <td>80 DT</td>
-                          <td>Carte</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T029</td>
-                          <td>17/11/2024</td>
-                          <td>Herrod Chandler</td>
-                          <td>Kids Mensuel</td>
-                          <td>150 DT</td>
-                          <td>Chèque</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T030</td>
-                          <td>16/11/2024</td>
-                          <td>Rhona Davidson</td>
-                          <td>Coaching Groupe 3</td>
-                          <td>0/480 DT</td>
-                          <td>-</td>
-                          <td>
-                            <span class="badge-status badge-attente"
-                              >En Attente</span
-                            >
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-remind">
-                              <i class="fas fa-bell"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T031</td>
-                          <td>15/11/2024</td>
-                          <td>Colleen Hurst</td>
-                          <td>Gym Mensuel</td>
-                          <td>180 DT</td>
-                          <td>Espèces</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T032</td>
-                          <td>14/11/2024</td>
-                          <td>Sonya Frost</td>
-                          <td>Padel Pack 5</td>
-                          <td>450 DT</td>
-                          <td>Carte</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T033</td>
-                          <td>13/11/2024</td>
-                          <td>Jena Gaines</td>
-                          <td>Accès Libre</td>
-                          <td>300 DT</td>
-                          <td>Virement</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T034</td>
-                          <td>12/11/2024</td>
-                          <td>Quinn Flynn</td>
-                          <td>Gym Annuel</td>
-                          <td>1300 DT</td>
-                          <td>Virement</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T035</td>
-                          <td>11/11/2024</td>
-                          <td>Charde Marshall</td>
-                          <td>Réservation Padel</td>
-                          <td>0/100 DT</td>
-                          <td>-</td>
-                          <td>
-                            <span class="badge-status badge-attente"
-                              >En Attente</span
-                            >
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-remind">
-                              <i class="fas fa-bell"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T036</td>
-                          <td>10/11/2024</td>
-                          <td>Haley Kennedy</td>
-                          <td>Kids Trimestriel</td>
-                          <td>350 DT</td>
-                          <td>Espèces</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T037</td>
-                          <td>09/11/2024</td>
-                          <td>Tatyana Fitzpatrick</td>
-                          <td>Coaching Privé</td>
-                          <td>250 DT</td>
-                          <td>Carte</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T038</td>
-                          <td>08/11/2024</td>
-                          <td>Michael Silva</td>
-                          <td>Gym Mensuel</td>
-                          <td>180 DT</td>
-                          <td>Espèces</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T039</td>
-                          <td>07/11/2024</td>
-                          <td>Paul Byrd</td>
-                          <td>Basketball Pack 10</td>
-                          <td>250/500 DT</td>
-                          <td>Virement</td>
-                          <td>
-                            <span class="badge-status badge-partiel"
-                              >Partiel</span
-                            >
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-remind">
-                              <i class="fas fa-bell"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T040</td>
-                          <td>06/11/2024</td>
-                          <td>Gloria Little</td>
-                          <td>Gym Semestriel</td>
-                          <td>750 DT</td>
-                          <td>Chèque</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T041</td>
-                          <td>05/11/2024</td>
-                          <td>Bradley Greer</td>
-                          <td>Réservation Basketball</td>
-                          <td>0/80 DT</td>
-                          <td>-</td>
-                          <td>
-                            <span class="badge-status badge-attente"
-                              >En Attente</span
-                            >
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-remind">
-                              <i class="fas fa-bell"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T042</td>
-                          <td>04/11/2024</td>
-                          <td>Dai Rios</td>
-                          <td>Coaching Groupe 2</td>
-                          <td>400 DT</td>
-                          <td>Carte</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T043</td>
-                          <td>03/11/2024</td>
-                          <td>Jenette Caldwell</td>
-                          <td>Kids Mensuel</td>
-                          <td>150 DT</td>
-                          <td>Espèces</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T044</td>
-                          <td>02/11/2024</td>
-                          <td>Yuri Berry</td>
-                          <td>Gym Annuel</td>
-                          <td>1300 DT</td>
-                          <td>Virement</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T045</td>
-                          <td>01/11/2024</td>
-                          <td>Caesar Vance</td>
-                          <td>Padel Pack 10</td>
-                          <td>0/900 DT</td>
-                          <td>-</td>
-                          <td>
-                            <span class="badge-status badge-attente"
-                              >En Attente</span
-                            >
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-remind">
-                              <i class="fas fa-bell"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T046</td>
-                          <td>31/10/2024</td>
-                          <td>Doris Wilder</td>
-                          <td>Gym Trimestriel</td>
-                          <td>450 DT</td>
-                          <td>Carte</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T047</td>
-                          <td>30/10/2024</td>
-                          <td>Angelica Ramos</td>
-                          <td>Coaching Privé</td>
-                          <td>250 DT</td>
-                          <td>Espèces</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T048</td>
-                          <td>29/10/2024</td>
-                          <td>Gavin Joyce</td>
-                          <td>Réservation Padel</td>
-                          <td>50/100 DT</td>
-                          <td>Carte</td>
-                          <td>
-                            <span class="badge-status badge-partiel"
-                              >Partiel</span
-                            >
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-remind">
-                              <i class="fas fa-bell"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T049</td>
-                          <td>28/10/2024</td>
-                          <td>Jennifer Chang</td>
-                          <td>Kids Trimestriel</td>
-                          <td>350 DT</td>
-                          <td>Virement</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>#T050</td>
-                          <td>27/10/2024</td>
-                          <td>Brenden Wagner</td>
-                          <td>Gym Mensuel</td>
-                          <td>180 DT</td>
-                          <td>Chèque</td>
-                          <td>
-                            <span class="badge-status badge-paye">Payé</span>
-                          </td>
-                          <td>
-                            <button class="action-btn btn-view">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-btn btn-print">
-                              <i class="fas fa-print"></i>
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+  <!-- Table -->
+  <div class="pay-card">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Réf.</th>
+            <th>Date</th>
+            <th>Membre / Type</th>
+            <th>Montant</th>
+            <th>Mode</th>
+            <th>Statut</th>
+            <th style="text-align:right">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="paiementsTbody">
+          <tr class="empty-row"><td colspan="7">
+            <i class="fas fa-spinner fa-spin fa-2x mb-2" style="display:block"></i>
+            Chargement...
+          </td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="countLabel" style="margin-top:10px;color:#6c757d;font-size:.82rem;text-align:right"></div>
 
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="copyright">
-                    <p>Copyright © 2024 Smart GYM. Tous droits réservés.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- END MAIN CONTENT-->
-      </div>
-      <!-- END PAGE CONTAINER-->
+</div>
+
+<!-- ── Add / Edit Modal ── -->
+<div id="formModal" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-top">
+      <h2 id="formTitle">Enregistrer un Paiement</h2>
+      <button class="btn-x" onclick="closeForm()">×</button>
+    </div>
+    <input type="hidden" id="p_id">
+
+    <div class="form-group">
+      <label>Membre *</label>
+      <select id="p_membre" required>
+        <option value="">— Chargement des membres... —</option>
+      </select>
     </div>
 
-    <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-
-    <!-- Bootstrap JS-->
-    <script src="vendor/bootstrap-5.3.8.bundle.min.js"></script>
-
-    <!-- Vendor JS -->
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar-1.5.6.min.js"></script>
-
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-
-    <!-- Main JS-->
-    <script src="js/bootstrap5-init.js"></script>
-    <script src="js/main-vanilla.js"></script>
-    <script src="js/swiper-bundle-12.0.3.min.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/modern-plugins.js"></script>
-
-    <!-- Initialize DataTable -->
-    <script>
-      $(document).ready(function () {
-        console.log("jQuery version:", $.fn.jquery);
-        console.log("DataTable disponible?", typeof $.fn.DataTable);
-
-        var table = $("#dataTable").DataTable({
-          language: {
-            lengthMenu: "Afficher _MENU_ entrées",
-            zeroRecords: "Aucun résultat trouvé",
-            info: "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-            infoEmpty: "Affichage de 0 à 0 sur 0 entrées",
-            infoFiltered: "(filtré de _MAX_ entrées au total)",
-            search: "Rechercher:",
-            paginate: {
-              first: "Premier",
-              last: "Dernier",
-              next: "Suivant",
-              previous: "Précédent",
-            },
-            loadingRecords: "Chargement...",
-            processing: "Traitement...",
-            emptyTable: "Aucune donnée disponible",
-            aria: {
-              sortAscending:
-                ": activer pour trier la colonne par ordre croissant",
-              sortDescending:
-                ": activer pour trier la colonne par ordre décroissant",
-            },
-          },
-          pageLength: 10,
-          lengthMenu: [
-            [10, 25, 50, -1],
-            [10, 25, 50, "Tous"],
-          ],
-          ordering: true,
-          searching: true,
-          paging: true,
-          info: true,
-          responsive: true,
-          autoWidth: false,
-          order: [[0, "desc"]],
-        });
-
-        console.log("DataTable initialized!", table);
-      });
-    </script>
-
-    <!-- Script Export CSV -->
-    <script>
-      $("#btnExport").on("click", function () {
-        let csv = "";
-        $("#dataTable tr").each(function () {
-          let row = [];
-          $(this)
-            .find("th, td")
-            .each(function () {
-              row.push('"' + $(this).text().trim() + '"');
-            });
-          csv += row.join(",") + "\n";
-        });
-
-        let blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-        let link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "paiements-smart-gym.csv";
-        link.click();
-      });
-    </script>
-
-    <!-- Script Recherche dans Header -->
-    <script>
-      $("#searchPaiement").on("keyup", function () {
-        $("#dataTable").DataTable().search(this.value).draw();
-      });
-    </script>
-
-    <!-- Modal Enregistrer Paiement -->
-    <div class="modal fade" id="modalPaiement" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-          <!-- Header -->
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title">
-              <i class="fas fa-credit-card me-2"></i>Enregistrer un Paiement
-            </h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
-
-          <!-- Body -->
-          <div class="modal-body">
-            <form id="formPaiement">
-              <div class="row">
-                <!-- Abonné -->
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Abonné</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Nom de l'abonné"
-                    required
-                  />
-                </div>
-
-                <!-- Type de transaction -->
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Type de Transaction</label>
-                  <select class="form-select" required>
-                    <option value="">-- Sélectionner --</option>
-                    <option>Abonnement Gym</option>
-                    <option>Coaching Privé</option>
-                    <option>Coaching Groupe</option>
-                    <option>Réservation Terrain</option>
-                    <option>Kids</option>
-                  </select>
-                </div>
-
-                <!-- Montant total -->
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Montant Total (DT)</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    placeholder="0.00"
-                    min="0"
-                    required
-                  />
-                </div>
-
-                <!-- Montant payé -->
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Montant Payé (DT)</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    placeholder="0.00"
-                    min="0"
-                    required
-                  />
-                </div>
-
-                <!-- Méthode de paiement -->
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Méthode de Paiement</label>
-                  <select class="form-select" required>
-                    <option value="">-- Choisir --</option>
-                    <option>Espèces</option>
-                    <option>Carte Bancaire</option>
-                    <option>Virement</option>
-                    <option>Chèque</option>
-                  </select>
-                </div>
-
-                <!-- Date paiement -->
-                <div class="col-md-6 mb-3">
-                  <label class="form-label">Date de Paiement</label>
-                  <input type="date" class="form-control" required />
-                </div>
-
-                <!-- Commentaire -->
-                <div class="col-md-12 mb-3">
-                  <label class="form-label">Remarque (optionnel)</label>
-                  <textarea
-                    class="form-control"
-                    rows="3"
-                    placeholder="Ex: paiement partiel, reste à payer..."
-                  ></textarea>
-                </div>
-              </div>
-            </form>
-          </div>
-
-          <!-- Footer -->
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Annuler
-            </button>
-            <button type="submit" form="formPaiement" class="btn btn-primary">
-              <i class="fas fa-save me-1"></i>Enregistrer
-            </button>
-          </div>
-        </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Type de transaction *</label>
+        <select id="p_type">
+          <option value="">— Sélectionner —</option>
+          <option>Gym Mensuel</option>
+          <option>Gym Trimestriel</option>
+          <option>Gym Annuel</option>
+          <option>Coaching Privé</option>
+          <option>Coaching Groupe</option>
+          <option>Accès Libre</option>
+          <option>Padel Séance</option>
+          <option>Padel Pack 5</option>
+          <option>Padel Pack 10</option>
+          <option>Basketball Séance</option>
+          <option>Basketball Pack 5</option>
+          <option>Basketball Pack 10</option>
+          <option>Kids Mensuel</option>
+          <option>Réservation</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Date de paiement *</label>
+        <input type="date" id="p_date">
       </div>
     </div>
-  </body>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Montant total (DT) *</label>
+        <input type="number" id="p_total" min="0" step="0.01"
+               placeholder="ex: 180" oninput="updatePreview()">
+      </div>
+      <div class="form-group">
+        <label>Montant payé (DT) *</label>
+        <input type="number" id="p_paye" min="0" step="0.01"
+               placeholder="ex: 90" oninput="updatePreview()">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Mode de paiement</label>
+        <select id="p_mode">
+          <option value="especes">Espèces</option>
+          <option value="carte">Carte</option>
+          <option value="virement">Virement</option>
+          <option value="cheque">Chèque</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Marquer comme remboursé ?</label>
+        <select id="p_statut_override" onchange="updatePreview()">
+          <option value="">Non (calculé automatiquement)</option>
+          <option value="rembourse">Oui — Remboursé</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="statut-hint">
+      Statut calculé automatiquement : &nbsp;
+      <span id="statut-preview" class="badge-pay"></span>
+    </div>
+
+    <div class="form-group" style="margin-top:14px">
+      <label>Remarque (optionnel)</label>
+      <textarea id="p_remarque" rows="2" placeholder="ex: paiement partiel, reste à régler..."></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeForm()">Annuler</button>
+      <button class="btn-primary" id="btnSave" onclick="savePaiement()">
+        <i class="fas fa-save me-1"></i> Enregistrer
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Delete Modal ── -->
+<div id="deleteModal" class="modal-overlay">
+  <div class="modal-box" style="max-width:400px">
+    <div class="modal-top">
+      <h2>Confirmer la suppression</h2>
+      <button class="btn-x" onclick="closeDelete()">×</button>
+    </div>
+    <p style="color:#495057;line-height:1.6">
+      Supprimer cette transaction ?<br>
+      <strong>Cette action est irréversible.</strong>
+    </p>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeDelete()">Annuler</button>
+      <button class="btn-danger"    onclick="confirmDelete()">
+        <i class="fas fa-trash me-1"></i> Supprimer
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop close -->
+<script>
+  document.querySelectorAll('.modal-overlay').forEach(m =>
+    m.addEventListener('click', e => { if (e.target === m) m.classList.remove('active'); })
+  );
+</script>
+</body>
 </html>
