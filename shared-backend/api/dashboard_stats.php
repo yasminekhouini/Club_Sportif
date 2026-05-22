@@ -1,19 +1,28 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '0');
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
-require_once __DIR__ . '/../db.php';
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 
-$stats = [];
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
 
-// ── 1. Stat cards ──────────────────────────────────────────────
-$stats['membres_actifs'] = $pdo
-    ->query("SELECT COUNT(*) FROM membres WHERE statut = 'actif'")
-    ->fetchColumn();
+try {
+    require_once __DIR__ . '/../db.php';
+
+    $stats = [];
+
+    // ── 1. Stat cards ──────────────────────────────────────────────
+    $stats['membres_actifs'] = $pdo
+        ->query("SELECT COUNT(*) FROM membres WHERE statut = 'actif'")
+        ->fetchColumn();
 
 $stats['revenus_mensuel'] = $pdo
-    ->query("SELECT COALESCE(SUM(montant),0) FROM paiements
+    ->query("SELECT COALESCE(SUM(montant_paye),0) FROM paiements
              WHERE MONTH(date_paiement)=MONTH(CURDATE())
-               AND YEAR(date_paiement)=YEAR(CURDATE())")
+               AND YEAR(date_paiement)=YEAR(CURDATE())
+               AND statut IN ('paye', 'partiel')")
     ->fetchColumn();
 
 $stats['expirations_7j'] = $pdo
@@ -24,9 +33,10 @@ $stats['expirations_7j'] = $pdo
 
 // ── 2. Revenue chart – monthly totals for current year ─────────
 $revChart = $pdo->query(
-    "SELECT MONTH(date_paiement) AS mois, SUM(montant) AS total
+    "SELECT MONTH(date_paiement) AS mois, SUM(montant_paye) AS total
      FROM paiements
      WHERE YEAR(date_paiement) = YEAR(CURDATE())
+       AND statut IN ('paye', 'partiel')
      GROUP BY mois ORDER BY mois"
 )->fetchAll();
 
@@ -46,7 +56,7 @@ $stats['nouveaux_membres'] = $pdo
     ->query("SELECT m.nom, a.type_abonnement, m.date_inscription, m.statut
              FROM membres m
              LEFT JOIN abonnements a ON a.membre_id = m.id AND a.statut='actif'
-             WHERE m.date_inscription >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+             WHERE m.created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
              ORDER BY m.created_at DESC LIMIT 10")
     ->fetchAll();
 
@@ -67,5 +77,9 @@ $stats['abo_stats'] = $pdo
              GROUP BY type_abonnement ORDER BY total DESC")
     ->fetchAll();
 
-echo json_encode(['success' => true, 'data' => $stats]);
+    echo json_encode(['success' => true, 'data' => $stats]);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+}
 ?>
